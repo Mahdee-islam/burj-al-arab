@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import './Header.css';
+import useAuth from '../../hooks/useAuth';
 import header from '../../images/header.png';
 import logo from '../../images/icons/logo.png';
+import './Header.css';
 
 const Header = () => {
+    const {user, logOut} = useAuth();
     return (
         <div style={{ backgroundImage: `linear-gradient( rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5) ), url(${header})` }} className="header">
             <nav className="nav">
@@ -21,7 +23,20 @@ const Header = () => {
                     <li>
                         <Link className="btn-book" to="/book">Book</Link>
                     </li>
+                  { user.email && <li>
+                       <span style={{
+                           color: 'white'
+                       }}> Hi, { user.displayName } :) </span>
+                   <button onClick={logOut}>Log out</button>
+                   </li>}
+                   <li>
+                       <Link to="/placeorder">PlaceOrder</Link>
+                   </li>
+                   <li>
+                       <Link to = "/dashboard">Dashboard</Link>
+                   </li>
                 </ul>
+               
             </nav>
             <div className="title-container">
                 <h1>Burj Al Arab</h1>
